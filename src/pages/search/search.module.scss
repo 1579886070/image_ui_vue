@@ -1,0 +1,89 @@
+.page {
+  background-color: rgb(255, 255, 255);
+  border-radius: 24px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  .group_1 {
+    padding-bottom: 63px;
+    height: 812px;
+    overflow-y: auto;
+    position: relative;
+    .header {
+      padding-top: 4.44px;
+      width: 325.5px;
+      position: absolute;
+      top: 7.56px;
+      left: 50%;
+      transform: translateX(-50%);
+      .image {
+        align-self: center;
+        width: 20px;
+        height: 16px;
+      }
+      .section_1 {
+        margin-left: 19px;
+        padding: 21.28px 0;
+        flex: 1 1 auto;
+        background-color: rgb(248, 249, 250);
+        border-radius: 16px;
+        box-shadow: 0px 1px 3px rgba(32, 32, 37, 0.08) inset, 0px -1px 3px rgba(32, 32, 37, 0.08) inset;
+        width: 236.91px;
+        height: 56.56px;
+        position: relative;
+        .group {
+          margin-left: 17.6px;
+          line-height: 14px;
+          .text {
+            color: rgb(33, 37, 41);
+            font-size: 16px;
+            font-family: Poppins;
+            line-height: 14.42px;
+          }
+          .text_1 {
+            color: rgb(173, 181, 189);
+            font-size: 16px;
+            font-family: Poppins;
+            line-height: 11.98px;
+          }
+        }
+      }
+      .text_2 {
+        margin-left: 13.59px;
+        align-self: center;
+        color: rgb(0, 0, 0);
+        font-size: 18px;
+        font-family: Poppins;
+        line-height: 16.69px;
+      }
+    }
+    .text_3 {
+      color: rgb(173, 181, 189);
+      font-size: 16px;
+      font-family: Poppins;
+      line-height: 14.85px;
+      position: absolute;
+      left: 5.54px;
+      top: 87.53px;
+    }
+    .grid {
+      padding: 8px 5px;
+      background-color: rgb(255, 255, 255);
+      height: 627px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 122px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 5px;
+      column-gap: 5px;
+      .grid-item {
+        border-radius: 8px;
+        width: 119px;
+        height: 119px;
+      }
+    }
+  }
+}

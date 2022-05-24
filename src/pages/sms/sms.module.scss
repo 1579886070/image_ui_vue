@@ -1,0 +1,98 @@
+.page {
+  background-color: rgb(255, 255, 255);
+  border-radius: 24px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  .group {
+    padding-bottom: 332px;
+    height: 812px;
+    overflow-y: auto;
+    position: relative;
+    .header {
+      padding: 36px 0 16px;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12.5px);
+      width: 375px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      .image {
+        margin-left: 26px;
+        width: 20px;
+        height: 16px;
+      }
+    }
+    .section_1 {
+      padding: 33.9px 24.99px 29.49px;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12.5px);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 68px;
+      .text {
+        color: rgb(33, 37, 41);
+        font-size: 32px;
+        font-family: Poppins;
+        font-weight: 300;
+        line-height: 29.47px;
+        letter-spacing: -0.32px;
+      }
+      .text_1 {
+        margin-top: 15.61px;
+        color: rgb(173, 181, 189);
+        font-size: 16px;
+        font-family: Poppins;
+        line-height: 14.82px;
+      }
+    }
+    .group_1 {
+      padding: 0 24px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 279px;
+      .text-wrapper {
+        margin-top: 89px;
+        padding: 20.51px 0 21.49px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 16px;
+        .text_4 {
+          color: rgb(173, 181, 189);
+          font-size: 16px;
+          font-family: Poppins;
+          line-height: 14.82px;
+        }
+      }
+      .text_2 {
+        margin-top: 13.64px;
+        color: rgb(33, 37, 41);
+        font-size: 32px;
+        font-family: Poppins;
+        font-weight: 300;
+        line-height: 23.52px;
+        letter-spacing: -0.32px;
+      }
+      .text_3 {
+        margin-left: 14.54px;
+        margin-top: 14.18px;
+        color: rgb(33, 37, 41);
+        font-size: 32px;
+        font-family: Poppins;
+        font-weight: 300;
+        line-height: 22.82px;
+        letter-spacing: -0.32px;
+      }
+      .image_1 {
+        width: 32px;
+        height: 56px;
+      }
+      .image_2 {
+        margin-left: 5.72px;
+      }
+    }
+  }
+}
