@@ -110,10 +110,10 @@ export default {
       // 登录过
       try {
 
-        Taro.setStorage({
-          key:"key",
-          data:"value"
-        })
+        // Taro.setStorage({
+        //   key:"key",
+        //   data:"value"
+        // })
 
         var value = Taro.getStorageSync("key");
         if (value) {
