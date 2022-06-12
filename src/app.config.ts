@@ -7,6 +7,7 @@ export default defineAppConfig({
     'pages/phone/phone',
     'pages/info/info',
     'pages/index/index',
+    'pages/upload/upload',
   ],
   "tabBar": {
     borderStyle: "white",

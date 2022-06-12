@@ -4,18 +4,15 @@
       <view :class="['justify-between', styles['header']]">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16532004434166149179.png"
-          :class="[styles['image']]"
-          @tap="onClickImage"
-        />
+          :class="[styles['image']]" @tap="onClickImage" />
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16530491798797548292.png"
-          :class="[styles['image']]"
-          @tap="onClickUpload"
-        />
+          :class="[styles['image']]" @tap="onClickUpload" />
       </view>
       <view :class="['flex-col', styles['group_1']]">
-        <view :class="[styles['section_1']]">
-          <nut-swiper
+
+        <img :class="[styles['section_1']]" src="https://storage.360buyimg.com/jdc-article/NutUItaro34.jpg">
+        <!-- <nut-swiper
             :init-page="page"
             :pagination-visible="true"
             pagination-color="#426543"
@@ -40,10 +37,8 @@
                 alt=""
               />
             </nut-swiper-item>
-          </nut-swiper>
+          </nut-swiper> -->
 
-          <!--*-->
-        </view>
         <view :class="['flex-col', styles['group_2']]">
           <view :class="['flex-row', styles['group_3']]">
             <text :class="[styles['text']]">珍惜每一个</text>
@@ -55,12 +50,8 @@
         </view>
       </view>
       <view :class="[styles['grid']]">
-        <image
-          v-for="item in listData"
-          :src="item.cover"
-          :class="[styles['grid-item']]"
-          @tap="onClickImage_2(item.id)"
-        />
+        <image v-for="item in listData" :src="item.cover" :class="[styles['grid-item']]"
+          @tap="onClickImage_2(item.id)" />
       </view>
     </view>
   </view>
@@ -109,37 +100,11 @@ export default {
     onClickUpload() {
       // 登录过
       try {
-
-        // Taro.setStorage({
-        //   key:"key",
-        //   data:"value"
-        // })
-
-        var value = Taro.getStorageSync("key");
-        if (value) {
+        var phone = Taro.getStorageSync("phone");
+        if (phone && phone == '15974242040') {
           // Do something with return value
-         Taro.showToast({
-            title: '已经登录',
-            icon: 'success',
-            duration: 2000
-          })
-
-          Taro.chooseImage({
-          count: 1, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有，在H5浏览器端支持使用 `user` 和 `environment`分别指定为前后摄像头
-          success: function (res) {
-            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            var tempFilePaths = res.tempFilePaths
-            console.log(tempFilePaths)
-          }
-        })
+          Taro.navigateTo({ url: "pages/upload/upload" });
         } else {
-          Taro.showToast({
-            title: '未登录',
-            icon: 'none',
-            duration: 2000
-          })
           Taro.navigateTo({ url: "pages/phone/phone" });
         }
       } catch (e) {

@@ -12,13 +12,13 @@
       <view :class="['flex-col', styles['group_1']]">
         <view :class="['justify-between', styles['section_1']]">
           <view :class="['flex-row']">
-            <input :class="[styles['text_1']]" type="number" placeholder="账号" />
+            <input :class="[styles['text_1']]" type="number" placeholder="账号" v-model="info.phone" />
           </view>
         </view>
-              <view :class="['justify-between', styles['section_1']]">
+        <view :class="['justify-between', styles['section_1']]">
           <view :class="['flex-row']">
 
-            <input :class="[styles['text_1']]" type="password" placeholder="密码" />
+            <input :class="[styles['text_1']]" type="password" placeholder="密码" v-model="info.password" />
           </view>
         </view>
         <view :class="['flex-col', 'items-center', styles['button']]" @tap="onClickView_5">
@@ -32,12 +32,17 @@
 <script>
 import Taro from '@tarojs/taro';
 import styles from './phone.module.scss';
+import { login } from '../../servers/api/login'
 
 export default {
   components: {},
   data() {
     return {
       styles,
+      info: {
+        phone: "",
+        password: ""
+      }
     };
   },
   methods: {
@@ -45,7 +50,40 @@ export default {
       Taro.navigateBack();
     },
     onClickView_5() {
-      Taro.navigateTo({ url: '/pages/sms/sms' });
+      // Taro.navigateTo({ url: '/pages/sms/sms' });
+      if (this.info.phone == "" || this.info.password == "") {
+        Taro.showToast({
+          title: '参数不能为空',
+          icon: 'error',
+          duration: 2000
+        })
+        return
+      }
+
+      let params = {
+        phone: this.info.phone,
+        sms: this.info.password
+
+      }
+
+      login(params).then(res => {
+        alert("登录成功！")
+
+        Taro.setStorage({
+          key: "phone",
+          data: this.info.phone
+        })
+
+        Taro.navigateTo({ url: 'pages/home/home' })
+      }).catch(err => {
+        console.log(err)
+        Taro.showToast({
+          title: '登录失败',
+          icon: 'error',
+          duration: 2000
+        })
+      })
+
     },
   },
 };
