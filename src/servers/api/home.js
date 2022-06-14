@@ -8,3 +8,11 @@ export const getList = (data) => {
 export const getInfo = (data) => {
     return HTTPREQUEST.get("/user/article/info", data)
 }
+
+export const upload = (data) => {
+  return HTTPREQUEST.upload(data)
+}
+
+export const add = (data) => {
+  return HTTPREQUEST.post('/user/article/add', data)
+}

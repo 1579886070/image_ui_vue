@@ -8,16 +8,15 @@
       </view>
       <view :class="['flex-col', styles['group_1']]">
         <view :class="['flex-col', 'items-start', styles['text-wrapper']]">
-          <input placeholder="标题" maxlength="10" :class="[styles['text']]" />
+          <input placeholder="标题" maxlength="10" :class="[styles['text']]" v-model='title' />
         </view>
         <view :class="['flex-col', styles['text-wrapper_1']]">
-          <textarea placeholder="内容" maxlength="200" v-bind:autoHeight="true" :class="[styles['text_5']]" />
+          <textarea placeholder="内容" maxlength="200" v-bind:autoHeight="true" :class="[styles['text_5']]"
+            v-model='content' />
         </view>
       </view>
       <view :class="['justify-between', styles['group_2']]">
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16530491772205522876.png"
-          :class="[styles['image_1']]" @tap="onClickImage_1" />
+        <image :src="imageUrl" :class="[styles['image_1']]" @tap="onClickImage_1" />
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16550062778643267049.png"
           :class="[styles['image_2']]" @tap="onClickImage_2" />
@@ -32,12 +31,16 @@
 <script>
 import Taro from '@tarojs/taro';
 import styles from './upload.module.scss';
+import { upload, add } from '../../servers/api/home';
 
 export default {
   components: {},
   data() {
     return {
+      imageUrl: '',
       styles,
+      title: '',
+      content: ''
     };
   },
   methods: {
@@ -53,15 +56,29 @@ export default {
         count: 1, // 默认9
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有，在H5浏览器端支持使用 `user` 和 `environment`分别指定为前后摄像头
-        success: function (res) {
+        success: res => {
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-          var tempFilePaths = res.tempFilePaths
-          console.log(tempFilePaths)
+          // this.imageUrl = tempFilePaths;
+
+          upload(res.tempFilePaths[0]).then(res => {
+            this.imageUrl = JSON.parse(res.data).url
+          }).catch(err => {
+
+          })
         }
       })
     },
     onClickView_4() {
-      Taro.navigateBack();
+      let params = {
+        'title' : this.title,
+        'content': this.content,
+        'cover': this.imageUrl
+      }
+      add(params).then(res => {
+          alert('成功')
+      }).catch(err => {
+        alert('错误！')
+      })
     },
   },
 };

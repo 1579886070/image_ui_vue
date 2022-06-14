@@ -43,6 +43,14 @@ class httpRequest {
     return this.baseOptions(option, "DELETE");
   }
 
+  upload(data) {
+     return Taro.uploadFile ({
+      url:   'http://127.0.0.1:8808/user/file/upload',
+      name: 'file',
+      filePath: data
+    })
+  }
+
 }
 
 export default new httpRequest()
