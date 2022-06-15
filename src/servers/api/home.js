@@ -9,6 +9,10 @@ export const getInfo = (data) => {
     return HTTPREQUEST.get("/user/article/info", data)
 }
 
+export const getAdvertisement = (data) => {
+  return HTTPREQUEST.get("/user/advertisement/new/info", data)
+}
+
 export const upload = (data) => {
   return HTTPREQUEST.upload(data)
 }

@@ -3,15 +3,19 @@
     <view :class="['flex-row', styles['group']]">
       <view :class="['justify-between', styles['header']]">
         <image
+          style="visibility: hidden"
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16532004434166149179.png"
-          :class="[styles['image']]" @tap="onClickImage" />
+          :class="[styles['image']]"
+          @tap="onClickImage()"
+        />
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16530491798797548292.png"
-          :class="[styles['image']]" @tap="onClickUpload" />
+          :class="[styles['image']]"
+          @tap="onClickUpload()"
+        />
       </view>
       <view :class="['flex-col', styles['group_1']]">
-
-        <img :class="[styles['section_1']]" src="https://storage.360buyimg.com/jdc-article/NutUItaro34.jpg">
+        <img :class="[styles['section_1']]" :src="advertisement.imgSrc" />
         <!-- <nut-swiper
             :init-page="page"
             :pagination-visible="true"
@@ -50,8 +54,16 @@
         </view>
       </view>
       <view :class="[styles['grid']]">
-        <image v-for="item in listData" :src="item.cover" :class="[styles['grid-item']]"
-          @tap="onClickImage_2(item.id)" />
+        <div
+          v-for="item in listData"
+          :key="item"
+          @click="onClickImage_2(item.id)"
+          :class="[styles['grid-item']]"
+          :style="{
+            backgroundSize: 'cover',
+            backgroundImage: 'url(' + item.cover + ')',
+          }"
+        />
       </view>
     </view>
   </view>
@@ -61,19 +73,24 @@
 import Taro from "@tarojs/taro";
 import styles from "./home.module.scss";
 import { reactive, toRefs } from "vue";
-import { getList } from "../../servers/api/home";
-import { Toast } from '@nutui/nutui';
+import { getList, getAdvertisement } from "../../servers/api/home";
+import { Toast } from "@nutui/nutui";
 export default {
   components: {},
   data() {
     return {
       styles,
       listData: [],
+      advertisement: {},
     };
   },
 
-  created() {
+  onShow() {
     this.sendList();
+  },
+
+  created() {
+    this.sendAdvertisement();
   },
 
   setup() {
@@ -84,6 +101,13 @@ export default {
   },
 
   methods: {
+    sendAdvertisement() {
+      getAdvertisement()
+        .then((res) => {
+          this.advertisement = res;
+        })
+        .catch((err) => {});
+    },
     sendList() {
       getList()
         .then((res) => {
@@ -92,20 +116,25 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          Taro.showToast({
+            title: "数据异常！",
+            icon: "error",
+            duration: 2000,
+          });
         });
     },
     onClickImage() {
-      Taro.navigateTo({ url: "/pages/search/search" });
+      // Taro.navigateTo({ url: "/pages/search/search" });
     },
     onClickUpload() {
       // 登录过
       try {
         var phone = Taro.getStorageSync("phone");
-        if (phone && phone == '15974242040') {
+        if (phone && phone == "15974242040") {
           // Do something with return value
-          Taro.navigateTo({ url: "pages/upload/upload" });
+          Taro.navigateTo({ url: "/pages/upload/upload" });
         } else {
-          Taro.navigateTo({ url: "pages/phone/phone" });
+          Taro.navigateTo({ url: "/pages/phone/phone" });
         }
       } catch (e) {
         // Do something when catch error

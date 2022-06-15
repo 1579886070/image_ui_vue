@@ -9,18 +9,18 @@ export default defineAppConfig({
     'pages/index/index',
     'pages/upload/upload',
   ],
-  "tabBar": {
-    borderStyle: "white",
-    "color": "#707586",
-    "selectedColor": "#1C1D20",
-    "list": [{
-      "pagePath": "pages/home/home",
-      "text": "首页"
-    }, {
-      "pagePath": "pages/me/me",
-      "text": "我的"
-    }]
-  },
+  // "tabBar": {
+  //   borderStyle: "white",
+  //   "color": "#707586",
+  //   "selectedColor": "#1C1D20",
+  //   "list": [{
+  //     "pagePath": "pages/home/home",
+  //     "text": "首页"
+  //   }, {
+  //     "pagePath": "pages/me/me",
+  //     "text": "我的"
+  //   }]
+  // },
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
