@@ -45,7 +45,7 @@ class httpRequest {
 
   upload(data) {
      return Taro.uploadFile ({
-      url:   'http://127.0.0.1:8808/user/file/upload',
+      url:   'https://image.api-p1.xiaoxinyes.club/user/file/upload',
       name: 'file',
       filePath: data
     })

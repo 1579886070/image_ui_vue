@@ -4,45 +4,24 @@
       <view :class="['flex-col', 'items-start', styles['header']]">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16532004434234997126.png"
-          :class="[styles['image']]"
-          @tap="onClickImage"
-        />
+          :class="[styles['image']]" @tap="onClickImage" />
       </view>
       <view :class="['flex-col', styles['group_1']]">
         <view :class="['flex-col', 'items-start', styles['text-wrapper']]">
-          <input
-            placeholder="标题"
-            maxlength="10"
-            :class="[styles['text']]"
-            v-model="title"
-          />
+          <input placeholder="标题" maxlength="10" :class="[styles['text']]" v-model="title" />
         </view>
         <view :class="['flex-col', styles['text-wrapper_1']]">
-          <textarea
-            placeholder="内容"
-            maxlength="200"
-            v-bind:autoHeight="true"
-            :class="[styles['text_5']]"
-            v-model="content"
-          />
+          <textarea placeholder="内容" maxlength="200" v-bind:autoHeight="true" :class="[styles['text_5']]"
+            v-model="content" />
         </view>
       </view>
       <view :class="['justify-between', styles['group_2']]">
-        <image
-          :src="imageUrl"
-          :class="[styles['image_1']]"
-          @tap="onClickImage_1"
-        />
+        <image :src="imageUrl" :class="[styles['image_1']]" @tap="onClickImage_1" />
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16550062778643267049.png"
-          :class="[styles['image_2']]"
-          @tap="onClickImage_2"
-        />
+          :class="[styles['image_2']]" @tap="onClickImage_2" />
       </view>
-      <view
-        :class="['flex-col', 'items-center', styles['button']]"
-        @tap="onClickView_4"
-      >
+      <view :class="['flex-col', 'items-center', styles['button']]" @tap="onClickView_4">
         <text :class="[styles['text_2']]">确认</text>
       </view>
     </view>
@@ -90,7 +69,7 @@ export default {
             .then((res) => {
               this.imageUrl = JSON.parse(res.data).url;
             })
-            .catch((err) => {});
+            .catch((err) => { });
         },
       });
     },
@@ -111,9 +90,7 @@ export default {
         cover: this.imageUrl,
       })
         .then((res) => {
-          Taro.navigateTo({
-            url: "/pages/home/home",
-          });
+          Taro.navigateBack();
         })
         .catch((err) => {
           Taro.showToast({
