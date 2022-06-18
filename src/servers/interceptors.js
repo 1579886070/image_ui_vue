@@ -1,6 +1,7 @@
 import Taro from "@tarojs/taro"
 import { pageToLogin } from "./utils"
 import { HTTP_STATUS } from './config'
+import { Base64 } from 'js-base64';
 
 const customInterceptor = (chain) => {
 
@@ -8,26 +9,46 @@ const customInterceptor = (chain) => {
 
   return chain.proceed(requestParams).then(res => {
     // 只要请求成功，不管返回什么状态码，都走这个回调
-    if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
-      return Promise.reject("请求资源不存在")
+    // if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
+    //   return Promise.reject("请求资源不存在")
 
-    } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {
-      return Promise.reject("服务端出现了问题")
+    // } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {
+    //   return Promise.reject("服务端出现了问题")
 
-    } else if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
-      Taro.setStorageSync("Authorization", "")
-      pageToLogin()
-      // TODO 根据自身业务修改
-      return Promise.reject("没有权限访问");
+    // } else if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
+    //   Taro.setStorageSync("Authorization", "")
+    //   pageToLogin()
+    //   // TODO 根据自身业务修改
+    //   return Promise.reject("没有权限访问");
 
-    } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
+    // } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
+    //   Taro.setStorageSync("Authorization", "")
+    //   pageToLogin()
+    //   return Promise.reject("需要鉴权")
+
+    // } else if (res.statusCode === HTTP_STATUS.SUCCESS) {
+    //   return res.data
+    // }
+
+    if (res.statusCode == HTTP_STATUS.AUTHENTICATE) {
       Taro.setStorageSync("Authorization", "")
       pageToLogin()
       return Promise.reject("需要鉴权")
+    } else if (res.statusCode != HTTP_STATUS.SUCCESS) {
+      let message = res.header['x-api-message']
+      console.log(message)
+      if (message != '') {
+        Taro.showToast({
+          title: decodeURIComponent(Base64.decode(message)),
+          icon: "error",
+          duration: 2000,
+        });
 
-    } else if (res.statusCode === HTTP_STATUS.SUCCESS) {
+        return Promise.reject(decodeURIComponent(Base64.decode(message)));
+      }
+      
+    } else {
       return res.data
-
     }
   })
 }

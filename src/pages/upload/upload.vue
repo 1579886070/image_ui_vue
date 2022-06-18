@@ -2,9 +2,9 @@
   <view :class="['flex-col', styles['page']]">
     <view :class="['flex-col', styles['group']]">
       <view :class="['flex-col', 'items-start', styles['header']]">
-        <image
+        <!-- <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16532004434234997126.png"
-          :class="[styles['image']]" @tap="onClickImage" />
+          :class="[styles['image']]" @tap="onClickImage" /> -->
       </view>
       <view :class="['flex-col', styles['group_1']]">
         <view :class="['flex-col', 'items-start', styles['text-wrapper']]">
@@ -81,7 +81,7 @@ export default {
           duration: 2000,
         });
 
-        return;
+        return
       }
 
       add({
@@ -93,11 +93,6 @@ export default {
           Taro.navigateBack();
         })
         .catch((err) => {
-          Taro.showToast({
-            title: "上传失败！",
-            icon: "error",
-            duration: 2000,
-          });
         });
     },
   },

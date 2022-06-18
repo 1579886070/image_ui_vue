@@ -5,7 +5,7 @@ import interceptors from './interceptors'
 interceptors.forEach(interceptorItem => Taro.addInterceptor(interceptorItem))
 
 class httpRequest {
-  
+
   baseOptions(params, method = "GET") {
     let { url, data } = params;
     const BASE_URL = getBaseUrl(url);
@@ -44,8 +44,8 @@ class httpRequest {
   }
 
   upload(data) {
-     return Taro.uploadFile ({
-      url:   'https://image.api-p1.xiaoxinyes.club/user/file/upload',
+    return Taro.uploadFile({
+      url: 'https://image.api-p1.xiaoxinyes.club' + '/user/file/upload',
       name: 'file',
       filePath: data
     })

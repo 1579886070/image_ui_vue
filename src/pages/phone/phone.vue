@@ -1,11 +1,11 @@
 <template>
   <view :class="['flex-col', styles['page']]">
     <view :class="['flex-row', styles['group']]">
-      <view :class="['flex-col', 'items-start', styles['header']]">
+      <!-- <view :class="['flex-col', 'items-start', styles['header']]">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/6283a57c5a7e3f0310ea3d0b/6284a8255d73580011b2a7b0/16532004434234997126.png"
           :class="[styles['image']]" @tap="onClickImage" />
-      </view>
+      </view> -->
       <view :class="['flex-col', 'items-start', styles['text-wrapper']]">
         <text :class="[styles['text']]">登录您的账户</text>
       </view>
@@ -65,6 +65,7 @@ export default {
         sms: this.info.password,
       })
         .then((res) => {
+          console.log(res)
           Taro.setStorage({
             key: "phone",
             data: this.info.phone,
@@ -74,11 +75,6 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          Taro.showToast({
-            title: "登录失败！",
-            icon: "error",
-            duration: 2000,
-          });
         });
     },
   },
