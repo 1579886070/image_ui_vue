@@ -20,3 +20,7 @@ export const upload = (data) => {
 export const add = (data) => {
   return HTTPREQUEST.post('/user/article/add', data)
 }
+
+export const statusInfo = (data) => {
+  return HTTPREQUEST.get('/user/article/status' + data)
+}

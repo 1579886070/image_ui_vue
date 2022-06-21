@@ -61,7 +61,7 @@
           :class="[styles['grid-item']]"
           :style="{
             backgroundSize: 'cover',
-            backgroundImage: 'url(' + item.cover + ')',
+            backgroundImage: 'url(' + item.cover + '?imageMogr2/thumbnail/!119x119r|imageMogr2/gravity/center/crop/119x119/interlace/0'  + ')',
           }"
         />
       </view>

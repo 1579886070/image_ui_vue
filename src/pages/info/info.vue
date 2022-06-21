@@ -1,7 +1,10 @@
 <template>
   <view :class="['flex-col', styles['page']]">
     <view
-      :style="{ backgroundSize:'cover', backgroundImage: 'url(' + info.cover + ')' }"
+      :style="{
+        backgroundSize: 'cover',
+        backgroundImage: 'url(' + info.cover + ')',
+      }"
       :class="['flex-col', styles['section_1']]"
     >
       <image
@@ -22,7 +25,13 @@
         <text :class="[styles['text_1']]">122</text> -->
         <image
           src="../../assets/search.png"
-          :class="[styles['image_1']]"  @tap="openImage(info.cover)"
+          :class="[styles['image_1']]"
+          @tap="openImage(info.cover)"
+        />
+        <image
+          src="../../assets/delete.png"
+          :class="[styles['image_1']]"
+          @tap="statusImage(infoId)"
         />
       </view>
     </view>
@@ -41,10 +50,12 @@
 <script>
 import Taro from "@tarojs/taro";
 import styles from "./info.module.scss";
-import { getInfo } from "../../servers/api/home";
+import { getInfo, statusInfo } from "../../servers/api/home";
 
 export default {
-  components: {},
+  components: {
+    infoId: "",
+  },
   created() {
     // 建议在页面初始化时把 getCurrentInstance() 的结果保存下来供后面使用，
     // 而不是频繁地调用此 API
@@ -53,7 +64,8 @@ export default {
   mounted() {
     // 获取路由参数
     console.log(this.$instance.router.params); // 输出 { id: 2, type: 'test' }
-    this.getData(this.$instance.router.params.id);
+    this.infoId = this.$instance.router.params.id;
+    this.getData(this.infoId);
   },
   data() {
     return {
@@ -63,13 +75,42 @@ export default {
     };
   },
   methods: {
+    statusImage(id) {
+      try {
+        var phone = Taro.getStorageSync("phone");
+        if (phone != "15974242040") {
+          Taro.showToast({
+            title: "无权限操作！",
+            icon: "error",
+            duration: 2000,
+          });
+
+          return;
+        }
+      } catch (e) {
+        // Do something when catch error
+      }
+
+      Taro.showModal({
+        title: "确定删除内容吗",
+        cancelText: "取消",
+        confirmText: "确认",
+        success(res) {
+          if (res.confirm) {
+            statusInfo("?id=" + id).then((res) => {
+              Taro.navigateBack();
+            });
+          }
+        },
+      });
+    },
     onClickImage() {
       Taro.navigateBack();
     },
     openImage(cover) {
       Taro.previewImage({
         current: cover,
-        urls: [cover]
+        urls: [cover],
       });
     },
 
